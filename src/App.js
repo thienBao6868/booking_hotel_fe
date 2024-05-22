@@ -1,9 +1,16 @@
-import React from 'react'
+import React from "react";
+import { AuthProvider } from "./context/AuthContext";
+
+
+// <AuthProvider>  cung cấp trạng thái Auth cho toàn bộ ứng dụng.
 
 function App() {
+
   return (
-    <div>App</div>
-  )
+    <AuthProvider>
+      <div>App</div>
+    </AuthProvider>
+  );
 }
 
-export default App
+export default App;
