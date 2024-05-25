@@ -5,6 +5,8 @@ import LoginPage from "./page/LoginPage";
 import PartnerRegisterPage from "./page/PartnerRegisterPage";
 import Navbar from "./components/navbar";
 import Footer from "./components/footer";
+import { BrowserRouter } from "react-router-dom";
+import Router from "./routes";
 
 
 
@@ -15,10 +17,13 @@ function App() {
   return (
     <AuthProvider>
       {/* <RegisterPage/> */}
-      <LoginPage/>
+      {/* <LoginPage/> */}
       {/* <PartnerRegisterPage/> */}
       {/* <Navbar/> */}
       {/* <Footer/> */}
+      <BrowserRouter>
+        <Router/>
+      </BrowserRouter>
     </AuthProvider>
   );
 }

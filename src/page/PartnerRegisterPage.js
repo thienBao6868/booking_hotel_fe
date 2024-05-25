@@ -17,6 +17,7 @@ import FormProvider from "../components/form/FormProvider";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
+import { Link as LinkRouter } from "react-router-dom";
 
 const loginSchema = yup
   .object({
@@ -128,7 +129,7 @@ const PartnerRegisterPage = () => {
               <Typography className="mr-2" style={{ color: "#4299f1" }}>
                 If You do Have An Partner Account, you can Login
               </Typography>
-              <Button variant="outlined">Login</Button>
+              <Button variant="outlined" component={LinkRouter} to="/login">Login</Button>
             </div>
           </div>
         </div>

@@ -7,6 +7,7 @@ import {
   Link,
   Typography,
 } from "@mui/material";
+import { Link as LinkRouter } from "react-router-dom";
 import React, { useState } from "react";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
@@ -106,7 +107,7 @@ const LoginPage = () => {
               <Typography className="mr-2" style={{ color: "#4299f1" }}>
                 If You Don't Have An Account, Create
               </Typography>
-              <Button variant="outlined">Register</Button>
+              <Button variant="outlined" component={LinkRouter} to="/register">Register</Button>
             </div>
           </div>
         </div>
