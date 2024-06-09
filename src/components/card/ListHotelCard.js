@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
-import HotelCard from './HotelCard'
-import { Box, Button } from '@mui/material';
-import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
-import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
+import React, { useState } from "react";
+import HotelCard from "./HotelCard";
+import { Box, Button } from "@mui/material";
+import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
+import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 
-const ListHotelCard = ({items, itemsPerPage}) => {
-    const [startIndex, setStartIndex] = useState(0);
+const ListHotelCard = ({ items, itemsPerPage }) => {
+  const [startIndex, setStartIndex] = useState(0);
 
   const handleNext = () => {
     setStartIndex((prevIndex) =>
@@ -18,23 +18,26 @@ const ListHotelCard = ({items, itemsPerPage}) => {
   };
   const selectedItems = items.slice(startIndex, startIndex + itemsPerPage);
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center'}}>
+    <Box sx={{ display: "flex", alignItems: "center" }}>
       <Button onClick={handlePrev} disabled={startIndex === 0}>
-        <ArrowCircleLeftIcon/>
+        <ArrowCircleLeftIcon />
       </Button>
-      <Box sx={{ display: 'flex', flexWrap: 'nowrap', overflowX: 'auto' }} className="space-x-5">
+      <Box
+        sx={{ display: "flex", flexWrap: "nowrap", overflowX: "auto" }}
+        className="space-x-5"
+      >
         {selectedItems.map((item) => (
-          <HotelCard key={item.key}/>
+          <HotelCard key={item.key} />
         ))}
       </Box>
       <Button
         onClick={handleNext}
         disabled={startIndex >= items.length - itemsPerPage}
       >
-        <ArrowCircleRightIcon/>
+        <ArrowCircleRightIcon />
       </Button>
     </Box>
-  )
-}
+  );
+};
 
-export default ListHotelCard
+export default ListHotelCard;

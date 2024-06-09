@@ -8,26 +8,9 @@ import {
 } from "@mui/material";
 import React from "react";
 import avatar from "../../media/avatar.webp";
+import { Rating } from "../components/Rating";
 
-const Rating = ({ rating }) => {
-  return (
-    <Box
-      sx={{
-        display: "inline-flex",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "8px 12px",
-        backgroundColor: "primary.main",
-        color: "white",
-        borderRadius: "8px",
-        fontWeight: "bold",
-        fontSize: "16px",
-      }}
-    >
-      {rating}
-    </Box>
-  );
-};
+
 
 const HotelCard = () => {
   return (

@@ -5,6 +5,9 @@ export const theme = {
     height:{
       '128':'40rem',
       '152':'48rem'
+    },
+    width: {
+      '128': '60rem',
     }
   },
 };

@@ -18,6 +18,7 @@ import FormProvider from "../components/form/FormProvider";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
+import useAuth from "../hook/useAuth";
 
 const loginSchema = yup
   .object({
@@ -32,6 +33,7 @@ const defaultValue = {
 };
 
 const LoginPage = () => {
+  const auth = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const methods = useForm({ defaultValue, resolver: yupResolver(loginSchema) });
   const {
@@ -42,8 +44,9 @@ const LoginPage = () => {
   } = methods;
 
   const onSubmit = async (data) => {
+    const {email,password} = data;
     try {
-      throw new Error("Day la loi");
+      await auth.login({email,password}, ()=>{});
     } catch (error) {
       reset();
       setError("responseError", error);

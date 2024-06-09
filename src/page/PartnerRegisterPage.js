@@ -119,17 +119,17 @@ const PartnerRegisterPage = () => {
                 fullWidth
                 loading={isSubmitting}
               >
-                Create Account
+                Create Partner Account
               </LoadingButton>
             </div>
           </FormProvider>
           <div className="mt-8 space-y-2">
             <Divider />
-            <div className="flex items-center">
+            <div className="flex items-center justify-between">
               <Typography className="mr-2" style={{ color: "#4299f1" }}>
-                If You do Have An Partner Account, you can Login
+                Back to homePage
               </Typography>
-              <Button variant="outlined" component={LinkRouter} to="/login">Login</Button>
+              <Button variant="outlined" component={LinkRouter} to="/">homePage</Button>
             </div>
           </div>
         </div>
