@@ -9,29 +9,30 @@ import {
 import React from "react";
 import avatar from "../../media/avatar.webp";
 import { Rating } from "../components/Rating";
+import { Link } from "react-router-dom";
 
 
 
-const HotelCard = () => {
+const HotelCard = ({item}) => {
   return (
     <div className="shadow-2xl shadow-slate-90 bg-gray-300">
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth:345 }} component={Link} to={`/hotel-detail/${item.id}`}>
       <CardActionArea>
         <CardMedia
           component="img"
-          height="140"
-          image={avatar}
+          style={{ height: '300px', width: '100%', objectFit: 'cover' }}
+          image={item.hotelImageDtoList[0].imagePath}
           alt="hotel avatar"
         />
-        <CardContent className="space-y-2">
+        <CardContent className="space-y-2" style={{minWidth:'200px'}}>
           <Typography variant="h5" component="div">
-            Carinya Park
+            {item.name}
           </Typography>
           <Typography variant="" component="div">
-            Ucs, Gembrook
+            <span>{item.hotelAddressDto.district}</span>, <span>{item.hotelAddressDto.province}</span>
           </Typography>
           <Box className="flex items-center">
-            <Rating rating={9.5} />
+            <Rating rating={item.rating} />
             <Typography sx={{ marginLeft: 3 }}>- 31 đánh giá</Typography>
           </Box>
           <Box sx={{ padding: 2 }} />

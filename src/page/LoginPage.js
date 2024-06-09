@@ -7,7 +7,7 @@ import {
   Link,
   Typography,
 } from "@mui/material";
-import { Link as LinkRouter } from "react-router-dom";
+import { Link as LinkRouter, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
@@ -34,6 +34,7 @@ const defaultValue = {
 
 const LoginPage = () => {
   const auth = useAuth();
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const methods = useForm({ defaultValue, resolver: yupResolver(loginSchema) });
   const {
@@ -46,7 +47,9 @@ const LoginPage = () => {
   const onSubmit = async (data) => {
     const {email,password} = data;
     try {
-      await auth.login({email,password}, ()=>{});
+      await auth.login({email,password}, ()=>{
+        navigate("/")
+      });
     } catch (error) {
       reset();
       setError("responseError", error);

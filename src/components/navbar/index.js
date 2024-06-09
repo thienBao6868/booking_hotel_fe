@@ -1,33 +1,9 @@
-import { AppBar, Button, IconButton, Stack, Toolbar, Typography } from "@mui/material";
+import { AppBar, Button, IconButton, Toolbar, Typography } from "@mui/material";
 import React from "react";
 import AddHomeIcon from "@mui/icons-material/AddHome";
 import { Link } from "react-router-dom";
-import ListHotelCard from "../card/ListHotelCard";
 
-import ListProvinceCard from "../card/ListProvinceCard";
 
-const items = [
-  { key: 1 },
-  { key: 2 },
-  { key: 3 },
-  { key: 4 },
-  { key: 5 },
-  { key: 6 },
-  { key: 7 },
-  { key: 8 },
-  { key: 9 },
-];
-const provinces = [
-  { key: 1 },
-  { key: 2 },
-  { key: 3 },
-  { key: 4 },
-  { key: 5 },
-  { key: 6 },
-  { key: 7 },
-  { key: 8 },
-  { key: 9 },
-];
 
 const Navbar = () => {
 
@@ -83,16 +59,6 @@ const Navbar = () => {
           </div>
         </Toolbar>
       </AppBar>
-      <div className="p-5 flex items-center justify-center">
-        <div className="hidden sm:block">
-          <ListHotelCard items={items} itemsPerPage={4} />
-        </div>
-      </div>
-      <Stack padding={5}/>
-      <div className="p-5 flex items-center justify-center" >
-        <ListProvinceCard items={provinces} itemsPerPage={4}/>
-      </div>
-      <Stack padding={5}/>
     </div>
   );
 };

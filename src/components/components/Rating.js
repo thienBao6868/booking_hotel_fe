@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-
+import StarIcon from '@mui/icons-material/Star';
 export const Rating = ({ rating }) => {
     return (
       <Box
@@ -16,6 +16,7 @@ export const Rating = ({ rating }) => {
         }}
       >
         {rating}
+        <StarIcon color="warning"/>
       </Box>
     );
   };

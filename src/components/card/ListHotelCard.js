@@ -24,10 +24,10 @@ const ListHotelCard = ({ items, itemsPerPage }) => {
       </Button>
       <Box
         sx={{ display: "flex", flexWrap: "nowrap", overflowX: "auto" }}
-        className="space-x-5"
+        className="space-x-2"
       >
         {selectedItems.map((item) => (
-          <HotelCard key={item.key} />
+          <HotelCard key={item.id} item={item}/>
         ))}
       </Box>
       <Button

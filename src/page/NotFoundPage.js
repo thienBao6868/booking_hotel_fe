@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom'
 
 const NotFoundPage = () => {
   return (
-    <Container sx={{ textAlign: 'center', mt: 8 }}>
-            <Typography variant="h1" component="div" gutterBottom>
+    <Container sx={{ textAlign: 'center'}}>
+            <Typography variant="h2" component="div" gutterBottom>
                 404
             </Typography>
             <Typography variant="h5" component="div" gutterBottom>
