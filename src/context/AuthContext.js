@@ -1,5 +1,6 @@
 import { createContext, useReducer } from "react";
 import { apiService } from "../app/apiService";
+import axios from "axios";
 
 const INITIALIZE = "AUTH.INITIALIZE";
 const LOGIN_SUCCESS = "AUTH.LOGIN_SUCCESS";
@@ -34,10 +35,8 @@ const reducer = (state, action) => {
 const setSession = (accessToken) => {
   if (accessToken) {
     window.localStorage.setItem("accessToken", accessToken);
-
-    let token = window.localStorage.getItem("accessToken");
-    console.log(token)
-    apiService.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
+    console.log("check o setSession",accessToken);
+    apiService.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
   } else {
     window.localStorage.removeItem("accessToken");
     delete apiService.defaults.headers.common.Authorization;
@@ -52,7 +51,6 @@ export const AuthProvider = ({ children }) => {
     const response = await apiService.post(`/auth/login`, { email, password });
   
     const  accessToken  = response.data.accessToken;
-     
     setSession(accessToken);
 
     dispatch({

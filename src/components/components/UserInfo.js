@@ -7,7 +7,7 @@ const UserInfo = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await apiService.get("/user?id=4");
+        const response = await apiService.get("/user/me");
         const result = response.data;
         console.log(result);
         setData(result);
