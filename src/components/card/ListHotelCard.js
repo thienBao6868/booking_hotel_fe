@@ -4,6 +4,9 @@ import { Box, Button } from "@mui/material";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+
 const ListHotelCard = ({ items, itemsPerPage }) => {
   const [startIndex, setStartIndex] = useState(0);
 
@@ -20,7 +23,7 @@ const ListHotelCard = ({ items, itemsPerPage }) => {
   return (
     <Box sx={{ display: "flex", alignItems: "center" }}>
       <Button onClick={handlePrev} disabled={startIndex === 0}>
-        <ArrowCircleLeftIcon />
+      <ArrowBackIosNewIcon/>
       </Button>
       <Box
         sx={{ display: "flex", flexWrap: "nowrap", overflowX: "auto" }}
@@ -34,7 +37,7 @@ const ListHotelCard = ({ items, itemsPerPage }) => {
         onClick={handleNext}
         disabled={startIndex >= items.length - itemsPerPage}
       >
-        <ArrowCircleRightIcon />
+   <ArrowForwardIosIcon/>
       </Button>
     </Box>
   );

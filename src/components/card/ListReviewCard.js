@@ -27,7 +27,7 @@ const ListReviewCard = ({items,itemsPerPage}) => {
         className="space-x-5"
       >
         {selectedItems.map((item) => (
-          <ReviewCard key={item.key} />
+          <ReviewCard key={item.id} item={item} />
         ))}
       </Box>
       <Button

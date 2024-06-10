@@ -17,7 +17,7 @@ const Router = () => {
       <Route path="/" element={<MainLayout />}>
         <Route index element={<HomePage />} />
         <Route path="/search-hotel" element={<SearchPage />} />
-        <Route path="/hotel-detail/*" element={<HotelDetail />} />
+        <Route path="/hotel-detail/:hotelId" element={<HotelDetail />} />
         <Route path="/user-detail" element={<UserDetail />} />
       </Route>
       <Route element={<BlankLayout/>}>

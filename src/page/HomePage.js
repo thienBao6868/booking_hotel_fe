@@ -5,17 +5,6 @@ import { Stack } from "@mui/material";
 import ListProvinceCard from "../components/card/ListProvinceCard";
 import { apiService } from "../app/apiService";
 
-const items = [
-  { key: 1 },
-  { key: 2 },
-  { key: 3 },
-  { key: 4 },
-  { key: 5 },
-  { key: 6 },
-  { key: 7 },
-  { key: 8 },
-  { key: 9 },
-];
 const provinces = [
   { key: 1 },
   { key: 2 },

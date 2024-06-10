@@ -21,7 +21,7 @@ const HotelCard = ({item}) => {
         <CardMedia
           component="img"
           style={{ height: '300px', width: '100%', objectFit: 'cover' }}
-          image={item.hotelImageDtoList[0].imagePath}
+          image={item.avatar}
           alt="hotel avatar"
         />
         <CardContent className="space-y-2" style={{minWidth:'200px'}}>

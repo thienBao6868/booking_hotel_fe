@@ -1,13 +1,21 @@
-import { Box, Button, ImageList, ImageListItem, Typography } from "@mui/material";
-import React, { useState } from "react";
+import {
+  Box,
+  Button,
+  ImageList,
+  ImageListItem,
+  Typography,
+} from "@mui/material";
+import React, { useEffect, useState } from "react";
 import { Rating } from "../components/components/Rating";
 import ListReviewCard from "../components/card/ListReviewCard";
 import WifiIcon from "@mui/icons-material/Wifi";
 import LocalParkingIcon from "@mui/icons-material/LocalParking";
 import SmokeFreeIcon from "@mui/icons-material/SmokeFree";
 import FreeBreakfastIcon from "@mui/icons-material/FreeBreakfast";
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import { useParams } from "react-router-dom";
+import { apiService } from "../app/apiService";
 
 const itemData = [
   {
@@ -92,97 +100,124 @@ const items = [
 ];
 
 const HotelDetail = () => {
-
+  const { hotelId } = useParams();
+  console.log(hotelId);
   const [favorite, setFavorite] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [hotelDetail, setHotelDetail] = useState({});
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await apiService.get(`/hotel/${hotelId}`);
+        setHotelDetail(response.data.data);
+        setIsLoading(true);
+      } catch (error) {
+        console.log("Error fetch get detail hotel", error.message);
+      }
+    };
+    fetchData();
+  }, []);
 
   const click = () => {
     setFavorite(!favorite);
-  }
+  };
   return (
-    <div className="mx-2 px-36">
-      <div className="flex mb-6">
-        <Box marginRight={10}>
-          <Typography variant="h3">Annata Beach Hotel</Typography>
-          <Typography variant="h5">
-            165A Thuy Van Street, Thang Tam Ward, Vũng Tàu, Việt Nam
-          </Typography>
-        </Box>
-        <div>
-          <Button onClick={click}>
-            {favorite? (<FavoriteIcon sx={{ fontSize: 80 }}  color="primary"/>): (<FavoriteBorderIcon sx={{ fontSize: 80 }}  color="primary"/>)}
-          </Button>
-        </div>
-      </div>
+    <>
+      {isLoading ? (
+        <div className="mx-2 my-8 px-36">
+          <div className="flex mb-6">
+            <Box marginRight={10}>
+              <Typography variant="h3">{hotelDetail.name}</Typography>
+              <Typography variant="h5">
+                <span>{hotelDetail?.hotelAddressDto?.streetNumber}</span>{" "}
+                <span>{hotelDetail?.hotelAddressDto?.streetName}</span>,{" "}
+                <span>{hotelDetail?.hotelAddressDto?.district}</span>,{" "}
+                <span>{hotelDetail?.hotelAddressDto?.province}</span>,{" "}
+                <span>{hotelDetail?.hotelAddressDto?.country}</span>
+              </Typography>
+            </Box>
+            <div>
+              <Button onClick={click}>
+                {favorite ? (
+                  <FavoriteIcon sx={{ fontSize: 80 }} color="primary" />
+                ) : (
+                  <FavoriteBorderIcon sx={{ fontSize: 80 }} color="primary" />
+                )}
+              </Button>
+            </div>
+          </div>
 
-      <div className="flex">
-        <div className="mr-2">
-          <ImageList sx={{ width: 800, height: 650 }} cols={3} rowHeight={164}>
-            {itemData.map((item) => (
-              <ImageListItem key={item.img}>
-                <img
-                  srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                  src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
-                  alt={item.title}
-                  loading="lazy"
+          <div className="flex">
+            <div className="mr-2">
+              <ImageList
+                sx={{ width: 800, height: 650 }}
+                cols={3}
+                rowHeight={164}
+              >
+                {hotelDetail?.hotelImageDtoList.map((item) => (
+                  <ImageListItem key={item.id}>
+                    <img
+                      srcSet={`${item.imagePath}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                      src={`${item.imagePath}?w=164&h=164&fit=crop&auto=format`}
+                      alt={item.imageTitle}
+                      loading="lazy"
+                    />
+                  </ImageListItem>
+                ))}
+              </ImageList>
+            </div>
+            <div>
+              <div className="flex items-center  justify-end">
+                <Typography sx={{ marginRight: 1 }}>31 đánh giá - </Typography>
+                <Rating rating={hotelDetail.rating} />
+              </div>
+              <Box>
+                <ListReviewCard
+                  items={hotelDetail.hotelReviewDtoList}
+                  itemsPerPage={1}
                 />
-              </ImageListItem>
-            ))}
-          </ImageList>
-        </div>
-        <div>
-          <div className="flex items-center  justify-end">
-            <Typography sx={{ marginRight: 1 }}>31 đánh giá - </Typography>
-            <Rating rating={9.5} />
-          </div>
-          <Box>
-            <ListReviewCard items={items} itemsPerPage={1} />
-          </Box>
-          <div className="flex-col space-y-4 ml-6 ">
-            <div className="flex space-x-2  ">
-              {amenities[0].icon}
-              <span>{amenities[0].title}</span>
-            </div>
-            <div className="flex space-x-2  ">
-              {amenities[1].icon}
-              <span>{amenities[1].title}</span>
-            </div>
-            <div className="flex space-x-2  ">
-              {amenities[2].icon}
-              <span>{amenities[2].title}</span>
-            </div>
-            <div className="flex space-x-2   ">
-              {amenities[3].icon}
-              <span>{amenities[3].title}</span>
+              </Box>
+              <div className="flex-col space-y-4 ml-6 ">
+                <div><Typography variant="h4">Danh sách tiện nghi</Typography></div>
+                {hotelDetail?.amenitiesOfHotel.map((item) => (
+                  <div className="flex space-x-2  ">
+                    <div>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        width="24"
+                        height="24"
+                      >
+                       <path d={item?.icon}></path>
+                      </svg>
+                    </div>
+                    <span>{item.name}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
+          <div className="mt-4 mb-8">
+            <Box sx={{ padding: 2, width: 800, height: 250 }}>
+              <Typography variant="body">{hotelDetail?.description}</Typography>
+            </Box>
+          </div>
+          <div className="flex-col space-y-6">
+            <Typography variant="h3">
+              Đọc xem khách yêu thích điều gì nhất:
+            </Typography>
+            <Box>
+              <ListReviewCard
+                items={hotelDetail.hotelReviewDtoList}
+                itemsPerPage={3}
+              />
+            </Box>
+          </div>
         </div>
-      </div>
-      <div>
-        <Box sx={{ padding: 2, width: 800, height: 250 }}>
-          <Typography variant="body">
-            Carinya Park is situated in quiet surroundings, 8 km from Gembrook,
-            in the hills of the Dandenong Ranges and features barbecue
-            facilities and garden. It features a full kitchen and a private
-            bathroom. The cottage is equipped with a balcony with views of the
-            mountain. The property features views over the orchards, forest and
-            paddocks. The cottage comes with a wardrobe and a flat-screen TV, as
-            well as a seating area and DVD player. Guests at the accommodation
-            will be able to enjoy activities in and around Gembrook, like hiking
-            in Kurth Kiln, located across the road. Olinda is 35 km from Carinya
-            Park, while Emerald is 20 km away. The nearest airport is Melbourne
-            Airport, 95 km from the property.
-          </Typography>
-        </Box>
-      </div>
-      <div className="flex-col space-y-6">
-        <Typography variant="h3">
-          Đọc xem khách yêu thích điều gì nhất:
-        </Typography>
-        <Box>
-          <ListReviewCard items={items} itemsPerPage={3} />
-        </Box>
-      </div>
-    </div>
+      ) : (
+        <>Loading</>
+      )}
+    </>
   );
 };
 
